@@ -1,5 +1,8 @@
 <?php
 
+$YOUR_EMAIL_ADDRESS="";
+
+
 $issn="1471-2954" # this is issn for Proceedings B, as an example
 $fromdate="2018-01-01";
 $untildate="2018-07-31";
@@ -16,7 +19,7 @@ $oa_count=0;
 
 while(count($solved_items)<$total_items) {
 
-  $cr_target = json_decode(file_get_contents('https://api.crossref.org/journals/'.$issn.'/works?filter=from-pub-date:'.$fromdate.',until-pub-date:'.$untildate.',type:journal-article&select=DOI,title,publisher,author,created,container-title&rows=1000&sort=published&order=asc&cursor='.$cursor.'&mailto=janne.seppanen@peerageofscience.org'));
+  $cr_target = json_decode(file_get_contents('https://api.crossref.org/journals/'.$issn.'/works?filter=from-pub-date:'.$fromdate.',until-pub-date:'.$untildate.',type:journal-article&select=DOI,title,publisher,author,created,container-title&rows=1000&sort=published&order=asc&cursor='.$cursor.'&mailto='.$YOUR_EMAIL_ADDRESS));
   
 $journal = $cr_target->message->items[0]->$ct;
 $publisher = $cr_target->message->items[0]->publisher;
@@ -27,7 +30,7 @@ $publisher = $cr_target->message->items[0]->publisher;
 
       $doi=$entry->DOI;
         
-     $unpaywall=json_decode(file_get_contents("https://api.unpaywall.org/v2/".$doi."?email=janne.t.seppanen@jyu.fi"));
+     $unpaywall=json_decode(file_get_contents('https://api.unpaywall.org/v2/'.$doi.'?email='.$YOUR_EMAIL_ADDRESS));
      
      $solved_items[]=array('doi'=>$doi,'title'=> $entry->title[0],'oa'=>$unpaywall->is_oa);
      
