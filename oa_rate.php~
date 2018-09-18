@@ -1,8 +1,5 @@
 <?php
 
-# Script to calculate the proportion of a journal's articles that are open access, given journal's ISSN and time range.
-# Uses Unpaywall API and Crossref API
-
 $YOUR_EMAIL_ADDRESS="";
 
 
